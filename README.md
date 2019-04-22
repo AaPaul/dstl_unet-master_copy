@@ -1,3 +1,6 @@
+In the process of learning semantic segmentation, I learned about satellite image segmentation. The original resource comes from it(https://github.com/rogerxujiang/dstl_unet), and if there is infringement, I will delete it immediately. Thank you for your sharing
+
+
 (Check out my Medium post (https://goo.gl/Ussdr1) for more details of this project.)
 
 # A U-net based on Tensorflow for objection detection (or segmentation) of satellite images
