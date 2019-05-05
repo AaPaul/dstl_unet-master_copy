@@ -19,8 +19,7 @@ import time
 import sys
 from inference import pred_for_each_quarter, test_input, stitch_mask
 
-# hypes = './hypes/hypes.json'
-hypes = 'E:/workspace/mystoreroom/dstl_unet-master/hypes/hypes.json'
+hypes = './hypes/hypes.json'
 with open(hypes, 'r') as f:
     H = simplejson.load(f)
     H['batch_size'] = 1
@@ -50,14 +49,17 @@ config.gpu_options.allow_growth = True
 saver = tf.train.Saver()
 sess = tf.Session(config=config)
 # saver.restore(sess, save_path='log_dir/ckpt_new/ckpt-12000')
-saver.restore(sess, save_path='E:/workspace/mystoreroom/dstl_unet-master/log_dir/3-31_15-26_combo-jaccard/ckpt/ckpt-9000')
+# saver.restore(sess, save_path='log_dir/3-31_15-26_combo-jaccard/ckpt/ckpt-9000') # CLASS 0
+# saver.restore(sess, save_path='log_dir/4-23_23-16_combo-jaccard/ckpt/ckpt-9000')  # CLASS 2
+saver.restore(sess, save_path='log_dir/4-24_8-21_combo-jaccard/ckpt/ckpt-9000')  # CLASS 5
 
-ids_with_instance = train_utils.generate_train_ids(class_type)
+ids_with_instance = train_utils.generate_train_ids(class_type)   # 传递数据
 print('IDs of training data with instance of class {} ({}): {}'.format(
     class_type, data_utils.CLASSES[class_type + 1], ids_with_instance))
 
 jaccard_indices = {}
 
+'''
 for img_id in ids_with_instance:
 
     img_data = data_utils.ImageData(img_id)
@@ -100,15 +102,25 @@ for img_id in ids_with_instance:
             axs[1, 1].imshow(mask, cmap=plt.cm.gray, alpha=alpha)
             axs[1, 1].set_title('3-band image with predicted label for image: {}, class: {}'.format(
                 data_utils.train_IDs_dict[img_id], data_utils.CLASSES[class_type + 1]))
+            fig1 = plt.gcf()
+            # plt.show()  # 试试能否显示图片/
+            fig1.savefig("/home/administrator/桌面/dstl_unet-master/pic_save/tt%d_%d_%d" % (img_id, i, j))  # 用id来辨别图像
+        # fig = plt.gcf()
+        # plt.show()  # 试试能否显示图片
+        # fig.savefig("/home/administrator/桌面/dstl_unet-master/pic_save/sub_tt%d" % i)
     fig.tight_layout()
     fig.subplots_adjust(top=0.95)
+    # if img_id ==7: break
 
 print
 (('Jaccard indices {}'.format(jaccard_indices)))
-print
-(('Mean Jaccard index {}'.format(np.mean(jaccard_indices.values()))))
+# print
+# (('Mean Jaccard index {}'.format(np.mean(jaccard_indices.values()))))
 
-ids_w_o_instance = sorted(list(set(range(25)) - set(ids_with_instance)))
+'''
+# ids_w_o_instance = sorted(list(set(range(25)) - set(ids_with_instance)))
+ids_w_o_instance = sorted(list(set(range(16)) - set(ids_with_instance)))
+
 print
 ('IDs of training data w/o instance of class {} ({}): {}'.format(
     class_type, data_utils.CLASSES[class_type + 1], ids_w_o_instance))
@@ -131,11 +143,16 @@ for img_id in ids_w_o_instance:
     jaccard_indices[data_utils.train_IDs_dict[img_id]] = \
         polygons.intersection(true_polygons).area / polygons.union(true_polygons).area \
             if polygons.union(true_polygons).area else 1.
+    # plt.show()  # 试试能否显示图片
+
+print("no problem1!!!")
 
 print
 ('Jaccard indices {}'.format(jaccard_indices))
-print
-('Mean Jaccard index {}'.format(np.mean(jaccard_indices.values())))
+# print
+# ('Mean Jaccard index {}'.format(np.mean(jaccard_indices.values())))
+
+print("no problem2!!!")
 
 for img_id in range(30, 35):
 
@@ -156,6 +173,8 @@ for img_id in range(30, 35):
         img_id, data_utils.test_IDs_dict[img_id], class_type, data_utils.CLASSES[class_type + 1]),
         fontsize=16)
 
+    print("no problem!!!")
+
     for i in range(2):
         for j in range(2):
             axs[0].imshow(mask, cmap=plt.cm.gray)
@@ -165,5 +184,8 @@ for img_id in range(30, 35):
             axs[1].imshow(mask, cmap=plt.cm.gray, alpha=alpha)
             axs[1].set_title('3-band image with predicted label for image: {}, class: {}'.format(
                 data_utils.test_IDs_dict[img_id], data_utils.CLASSES[class_type + 1]))
+            plt.savefig("/home/administrator/桌面/dstl_unet-master/pic_save/t_another%d_%d_%d" % (img_id, i, j))
+            # plt.show()  # 试试能否显示图片
+    # plt.show()  # 试试能否显示图片
     fig.tight_layout()
     fig.subplots_adjust(top=0.95)
