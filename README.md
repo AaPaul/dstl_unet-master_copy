@@ -1,5 +1,6 @@
 In the process of learning semantic segmentation, I learned about satellite image segmentation. The original resource comes from it(https://github.com/rogerxujiang/dstl_unet), and if there is infringement, I will delete it immediately. Thank you for your sharing
 
+For Flask structure, there is an issue that if you create a FLask project by PyCharm automatelly, you can only edit the localhost and port from pycharm setting instead of parameters.
 
 (Check out my Medium post (https://goo.gl/Ussdr1) for more details of this project.)
 
