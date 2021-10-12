@@ -24,7 +24,7 @@ opencv-contrib-python == 3.3.0.9
 # utils/align_images.py: 8
 # utils/data_utils.py: 52
 # utils/train_utils.py: 40
-opencv-python == 3.3.0.9
+opencv-python == 4.2.0.32
 
 # inference.py: 19
 # merge_submission.py: 8
