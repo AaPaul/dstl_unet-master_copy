@@ -12,7 +12,7 @@ matplotlib == 2.0.0
 # utils/align_images.py: 7
 # utils/data_utils.py: 53
 # utils/train_utils.py: 39
-numpy == 1.12.0
+numpy == 1.21.0
 
 # inference.py: 17
 # utils/align_images.py: 8
