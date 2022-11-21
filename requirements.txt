@@ -48,7 +48,7 @@ simplejson == 3.10.0
 
 # inference.py: 12
 # train.py: 12,15
-tensorflow == 1.0.1
+tensorflow == 2.9.3
 
 # utils/data_utils.py: 49
 tifffile == 0.12.0
